@@ -41,7 +41,9 @@ source $VIMRUNTIME/macros/matchit.vim " Vimの「%」を拡張する
 set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
-
+"ペースト設定　
+"クリップボードから普通にペーストすると自動インデントが効いて下に行くほど右にずれていきますが
+"以下の設定をすることで、クリップボードからペーストする時だけインデントしないようにしてくれます。
 if &term =~ "xterm"
     let &t_SI .= "\e[?2004h"
     let &t_EI .= "\e[?2004l"
@@ -55,7 +57,36 @@ if &term =~ "xterm"
     inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
 endif
 
+" ------- Install vein.vim --------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
+" Required:
+set runtimepath+=/home/hibikisan/.cache/dein/repos/github.com/Shougo/dein.vim
 
+" Required:
+if dein#load_state('/home/hibikisan/.cache/dein')
+  call dein#begin('/home/hibikisan/.cache/dein')
+
+  " Let dein manage dein
+  " Required:
+  call dein#add('/home/hibikisan/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+  " Add or remove your plugins here:
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
+
+  " You can specify revision/branch/tag.
+  call dein#add('Shougo/deol.nvim', { 'rev': '01203d4c9' })
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
 
 
